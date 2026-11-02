@@ -1,9 +1,9 @@
 import MessageCard from './MessageCard'
 import { useState } from 'react'
 
-const Feed = ({ title = 'Сообщения' }) => {
-    const [messages, setMessages] = useState([])
+const Feed = ({ messages, title = 'Сообщения' }) => {
 
+    
     return (
         <>
             <div className="messages-section">
