@@ -8,6 +8,7 @@ import MyMessages from "./pages/MyMessages.jsx"
 import Board from "./pages/Board.jsx"
 import SignUp from "./pages/SignUp.jsx"
 import SignIn from "./pages/SignIn.jsx"
+import {AuthGuard} from "./components/AuthGuard"
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -15,11 +16,16 @@ createRoot(document.getElementById("root")).render(
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Board />} />
-                    <Route path="my-messages" element={<MyMessages />} />
+                    <Route path="my-messages" element={ 
+                        <AuthGuard>
+                            <MyMessages /> 
+                        </AuthGuard>    
+                    }
+                    />
                     <Route path="signin" element={<SignIn />} />
                     <Route path="signup" element={<SignUp />} />
                 </Route>
-                <Route element={<Logout />} />
+                <Route path="/logout" element={<Logout />} />
             </Routes>
         </BrowserRouter>
     </StrictMode>,
