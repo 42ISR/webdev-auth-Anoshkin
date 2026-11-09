@@ -12,7 +12,7 @@ import {AuthGuard} from "./components/AuthGuard"
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename="/absproxy/41234/">
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Board />} />
