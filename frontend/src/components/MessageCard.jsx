@@ -1,9 +1,10 @@
 import {api } from "../api/api"
 import {useMessageStore} from "../store/useMessageStore"
+import {useUserStore} from "../store/useUserStore"
 
-const MessageCard = ({ likes, content, username, createdAt, id }) => {
+const MessageCard = ({ likes, content, username, createdAt, id, userId, likedBy }) => {
     const {getMessages} = useMessageStore()
-
+    const {user} = useUserStore()
     const handleDelete = async () => {
         await api.deleteMessage(id)
         getMessages()
@@ -14,9 +15,10 @@ const MessageCard = ({ likes, content, username, createdAt, id }) => {
     }
 
     const handleReport = async () => {
-        await api,reportMessage(id)
+        await api.reportMessage(id)
         getMessages()
     }
+    const isLiked = likedBy.includes(user?.user.id)
     return (
         <div className="message-card">
             <div className="message-content">{content}</div>
@@ -25,18 +27,24 @@ const MessageCard = ({ likes, content, username, createdAt, id }) => {
                 <span className="message-time">{createdAt}</span>
             </div>
             <div className="message-actions">
+                {user && (
                 <button onClick={handleLike} className="action-button">
-                    <span>{likes} 💗🤍</span>
+                    <span>{likes} {isLiked? "💗" : "🤍"}</span>
                     <span>Нравится</span>
                 </button>
+                )}
+                {user && (
                 <button onClick={handleReport} className="action-button">
                     <span>🚩</span>
                     <span>Пожаловаться</span>
                 </button>
+                )}
+                {user?.user.id === userId && (
                 <button onClick={handleDelete} className="action-button delete">
                     <span>❌</span>
                     <span>Удалить</span>
                 </button>
+)}
             </div>
         </div>
     )

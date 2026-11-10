@@ -40,22 +40,27 @@ const sendMessage = async (messages) => {
 
 const getMyMessages = async () => {
     const res = await apiInstance.get("/my-messages")
+    return res
 } 
 
 const getStats = async () => {
     const res = await apiInstance.get("/stats")
+    return res
 }
 
 const authMe = async () => {
     const res = await apiInstance.get(`/auth/me`)
+    return res
 }
 
 const reportMessage = async (id) => {
-    const res = await apiInstance.get(`/messages/${id}/report`)
+    const res = await apiInstance.post(`/messages/${id}/report`)
+    return res
 }
 
 const likeMessage = async (id) => {
-    const res = await apiInstance.get(`/messages/${id}/like`)
+    const res = await apiInstance.post(`/messages/${id}/like`)
+    return res
 }
 
 const deleteMessage = async (id) => {
@@ -69,4 +74,9 @@ export const api = {
     getMessages,
     sendMessage,
     getMyMessages,
+    getStats,
+    reportMessage,
+    likeMessage,
+    deleteMessage,
+    authMe,
 }
